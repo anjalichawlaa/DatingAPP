@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using myDatingApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 namespace myDatingApp.API
 {
     public class Startup
@@ -31,11 +33,23 @@ namespace myDatingApp.API
             services.AddDbContext<DataContext>(x=>x.UseSqlite
             (Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+               options=>{
+                   options.TokenValidationParameters=new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey=true,
+                       IssuerSigningKey=new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                       ValidateAudience=false,
+                    ValidateIssuer=false
+                   };
+              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+                   
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -44,14 +58,17 @@ namespace myDatingApp.API
            // app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
+            
+            
         }
     }
 }

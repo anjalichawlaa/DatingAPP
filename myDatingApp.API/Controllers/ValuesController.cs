@@ -8,8 +8,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 namespace myDatingApp.API.Controllers
 {
+    [Authorize]
      [ApiController]
     [Route("[controller]")]
     public class ValuesController: ControllerBase
@@ -27,6 +29,7 @@ namespace myDatingApp.API.Controllers
            return Ok(values);
         }
 
+[AllowAnonymous]
 [HttpGet("{id}")]
     public async Task<IActionResult> GetValue(int id)
     {
