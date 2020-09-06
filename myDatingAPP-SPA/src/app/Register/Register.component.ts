@@ -19,7 +19,7 @@ model:any={};
       console.log("successfuly")
     },
     error=>{
-      console.log("error");
+      console.log(error);
     })
 
    }

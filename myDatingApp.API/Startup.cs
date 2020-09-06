@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using myDatingApp.API.Helpers;
 namespace myDatingApp.API
 {
     public class Startup
@@ -53,6 +57,20 @@ namespace myDatingApp.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(builder=>{
+                    builder.Run(async context=>{
+                        context.Response.StatusCode=(int)HttpStatusCode.InternalServerError;
+                        var Error = context.Features.Get<IExceptionHandlerFeature>();
+                        if(Error!=null)
+                        {
+                            context.Response.AddApplicationError(Error.Error.Message);
+                            await context.Response.WriteAsync(Error.Error.Message);
+                        }
+                    });
+                });
             }
 
            // app.UseHttpsRedirection();
