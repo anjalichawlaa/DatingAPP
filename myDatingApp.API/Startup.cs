@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using myDatingApp.API.Helpers;
+using AutoMapper;
 namespace myDatingApp.API
 {
     public class Startup
@@ -34,10 +35,17 @@ namespace myDatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(x=>x.UseSqlite
             (Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+             Opt=>{
+                 Opt.SerializerSettings.ReferenceLoopHandling=
+                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+             }
+            );
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IDatingRepository,DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                options=>{
                    options.TokenValidationParameters=new TokenValidationParameters
@@ -48,6 +56,7 @@ namespace myDatingApp.API
                     ValidateIssuer=false
                    };
               });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
