@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgxGalleryModule} from '@kolkov/ngx-gallery';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
@@ -28,6 +28,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { PreventUnsaved } from './authguard/prevent-unsaved.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+
 export function tokengetter()
 {
   return localStorage.getItem('token');
@@ -50,6 +51,7 @@ export function tokengetter()
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(approutes),
