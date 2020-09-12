@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class MemberEditComponent implements OnInit {
 user:User;
+photoUrl:string;
 @ViewChild('editForm') editForm:NgForm;
 @HostListener('window:beforeunload',['$event'])
 unloadNotification($event:any)
@@ -32,6 +33,8 @@ unloadNotification($event:any)
         this.alertify.error('error in getting data');
       }
     );
+
+    this.authservice.currentphotourl.subscribe(photourl=> this.photoUrl = photourl);
   }
 
   UpdateUser()
@@ -44,5 +47,9 @@ unloadNotification($event:any)
         this.alertify.error(error);
       }
     )
+  }
+  updatephoto(photoUrl:string)
+  {
+    this.user.photoUrl=photoUrl;
   }
 }

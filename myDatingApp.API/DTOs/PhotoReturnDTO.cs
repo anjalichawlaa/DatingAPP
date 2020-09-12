@@ -1,7 +1,7 @@
 using System;
-namespace myDatingApp.API.Models
+namespace myDatingApp.API.DTOs
 {
-    public class Photo
+    public class PhotoReturnDTO
     {
         public int Id{get;set;}
         public string Url{get;set;}
@@ -9,9 +9,7 @@ namespace myDatingApp.API.Models
 
         public DateTime DateAdded{get;set;}
         public bool IsMain{get;set;}
-        public string PublicId{get;set;}
 
-        public User User{get;set;}
-        public int UserId{get;set;}
+        public string PublicId {get;set;}
     }
 }

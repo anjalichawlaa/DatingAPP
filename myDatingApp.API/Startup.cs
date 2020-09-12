@@ -1,3 +1,5 @@
+using System.Reflection;
+using System.Transactions;
 using System.Net;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,7 @@ namespace myDatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(x=>x.UseSqlite
             (Configuration.GetConnectionString("DefaultConnection")));

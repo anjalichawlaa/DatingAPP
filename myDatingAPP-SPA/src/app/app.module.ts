@@ -26,6 +26,8 @@ import { UserService } from './_services/user.service';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { PreventUnsaved } from './authguard/prevent-unsaved.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 export function tokengetter()
 {
   return localStorage.getItem('token');
@@ -41,7 +43,8 @@ export function tokengetter()
       MessagesComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ export function tokengetter()
       }
     ),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
   ],
   providers: [AuthService,ErrorInterceptorProvider,AuthGuard,AlertifyService,UserService,
     MemberDetailResolver,PreventUnsaved],

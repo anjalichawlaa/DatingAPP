@@ -11,6 +11,7 @@ import { User } from '../_models/User';
 })
 export class UserService {
 baseUrl = environment.apiUrl;
+currentUser :User;
 constructor(private http: HttpClient) { }
 
 getUsers():Observable<User[]>
@@ -27,4 +28,13 @@ updateUser(id:number,user:User)
   return this.http.put(this.baseUrl+"Users/"+id,user);
 }
 
+setMain(id:number,userId:number)
+{
+  return this.http.post(this.baseUrl + 'Users/' + userId + '/Photos/' + id + '/setMain',{});
+}
+
+deletePhoto(id:number,userId:number)
+{
+  return this.http.delete(this.baseUrl + 'Users/' + userId + '/Photos/' + id);
+}
 }
