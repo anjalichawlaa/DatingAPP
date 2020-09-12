@@ -28,6 +28,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { PreventUnsaved } from './authguard/prevent-unsaved.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import {TimeagoModule} from 'ngx-timeago';
 
 export function tokengetter()
 {
@@ -66,7 +67,8 @@ export function tokengetter()
     ),
     TabsModule.forRoot(),
     NgxGalleryModule,
-    FileUploadModule
+    FileUploadModule,
+    TimeagoModule.forRoot()
   ],
   providers: [AuthService,ErrorInterceptorProvider,AuthGuard,AlertifyService,UserService,
     MemberDetailResolver,PreventUnsaved],

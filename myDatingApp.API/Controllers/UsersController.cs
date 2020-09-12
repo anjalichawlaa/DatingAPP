@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using myDatingApp.API.DTOs;
 using System.Collections.Generic;
+using myDatingApp.API.Helpers;
 namespace myDatingApp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [ApiController]
     [Route("[controller]")]
