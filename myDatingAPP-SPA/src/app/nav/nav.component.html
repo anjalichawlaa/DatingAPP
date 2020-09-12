@@ -19,7 +19,7 @@
           Welcome {{auth.decodedtoken?.unique_name | titlecase}}
         </a>
         <div class="dropdown-menu" *dropdownMenu style="margin-top: 10px;">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" [routerLink]="['/member/edit']">
               <i class="fa fa-user">Edit Profile</i>
           </a>
           <div class="dropdown-divider"></div>

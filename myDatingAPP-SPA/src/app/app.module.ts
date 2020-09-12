@@ -16,7 +16,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { approutes } from './routes';
-import { MembersComponent } from './members/members.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -25,6 +24,8 @@ import { AuthGuard } from './authguard/auth.guard';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PreventUnsaved } from './authguard/prevent-unsaved.guard';
 export function tokengetter()
 {
   return localStorage.getItem('token');
@@ -38,9 +39,9 @@ export function tokengetter()
       ListsComponent,
       MemberListComponent,
       MessagesComponent,
-      MembersComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
   imports: [
     BrowserModule,
@@ -61,7 +62,8 @@ export function tokengetter()
     TabsModule.forRoot(),
     NgxGalleryModule
   ],
-  providers: [AuthService,ErrorInterceptorProvider,AuthGuard,AlertifyService,UserService,MemberDetailResolver],
+  providers: [AuthService,ErrorInterceptorProvider,AuthGuard,AlertifyService,UserService,
+    MemberDetailResolver,PreventUnsaved],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

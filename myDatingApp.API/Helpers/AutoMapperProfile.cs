@@ -20,6 +20,8 @@ namespace myDatingApp.API.Helpers
             opt=>opt.MapFrom(src=>src.Photos.FirstOrDefault(p=>p.IsMain).Url))
              .ForMember(dest=>dest.Age,opt=>opt.MapFrom(src=>src.DateOfBirth.CalcAge()));
             CreateMap<Photo,PhotosForDetailedDTO>();
+
+            CreateMap<UserUpdateDTO,User>();
         }
         
     }
